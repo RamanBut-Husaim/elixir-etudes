@@ -28,6 +28,8 @@ defmodule Etudes.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [
+      {:ex_parameterized, "~> 1.2.0"}
+    ]
   end
 end

@@ -1,19 +1,37 @@
 defmodule GeomTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
+  use ExUnit.Parameterized
 
-  test "area - when the values are specified should return correct result" do
-    assert Geom.area(3, 4) == 12
-    assert Geom.area(10, 8) == 80
-    assert Geom.area(19, 0) == 0
-  end
+  test_with_params "area - when a rectangle is specified should return correct result",
+    fn (length, width, expected) ->
+      assert Geom.area(:rectangle, length, width) == expected
+    end do
+      [
+        {4, 5, 20},
+        {1, 5, 5},
+        {8, 2, 16}
+      ]
+    end
 
-  test "area - when the width is not specified should take 1 as width value" do
-    assert Geom.area(6) == 6
-    assert Geom.area(12) == 12
-    assert Geom.area(33) == 33
-  end
+  test_with_params "area - when a triangle is specified should return correct result",
+    fn (base, height, expected) ->
+      assert Geom.area(:triangle, base, height) == expected
+    end do
+      [
+        {4, 5, 10.0},
+        {2, 5, 5.0},
+        {8, 2, 8.0}
+      ]
+    end
 
-  test "area - when length and width are not specified should return 1" do
-    assert Geom.area() == 1
-  end
+  test_with_params "area - when an ellipse is specified should return correct result",
+    fn (major_radius, minor_radius, expected) ->
+      assert_in_delta Geom.area(:ellipse, major_radius, minor_radius), expected, 0.1
+    end do
+      [
+        {4, 5, 62.8},
+        {2, 5, 31.4},
+        {8, 2, 50.24}
+      ]
+    end
 end
