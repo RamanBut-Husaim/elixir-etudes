@@ -4,7 +4,7 @@ defmodule GeomTest do
 
   test_with_params "area - when a rectangle is specified should return correct result",
     fn (length, width, expected) ->
-      assert Geom.area(:rectangle, length, width) == expected
+      assert Geom.area({:rectangle, length, width}) == expected
     end do
       [
         {4, 5, 20},
@@ -15,7 +15,7 @@ defmodule GeomTest do
 
   test_with_params "area - when a rectangle with negative dimensions is specified should raise error",
     fn (length, width) ->
-      assert_raise FunctionClauseError, fn -> Geom.area(:rectangle, length, width) end
+      assert_raise FunctionClauseError, fn -> Geom.area({:rectangle, length, width}) end
     end do
       [
         {-4, 5},
@@ -26,7 +26,7 @@ defmodule GeomTest do
 
   test_with_params "area - when a triangle is specified should return correct result",
     fn (base, height, expected) ->
-      assert Geom.area(:triangle, base, height) == expected
+      assert Geom.area({:triangle, base, height}) == expected
     end do
       [
         {4, 5, 10.0},
@@ -37,7 +37,7 @@ defmodule GeomTest do
 
   test_with_params "area - when a triangle with negative dimensions is specified should raise error",
     fn (base, height) ->
-      assert_raise FunctionClauseError, fn -> Geom.area(:triangle, base, height) end
+      assert_raise FunctionClauseError, fn -> Geom.area({:triangle, base, height}) end
     end do
       [
         {-4, 5},
@@ -48,7 +48,7 @@ defmodule GeomTest do
 
   test_with_params "area - when an ellipse is specified should return correct result",
     fn (major_radius, minor_radius, expected) ->
-      assert_in_delta Geom.area(:ellipse, major_radius, minor_radius), expected, 0.1
+      assert_in_delta Geom.area({:ellipse, major_radius, minor_radius}), expected, 0.1
     end do
       [
         {4, 5, 62.8},
@@ -59,7 +59,7 @@ defmodule GeomTest do
 
   test_with_params "area - when an ellipse with negative dimensions is specified should raise error",
     fn (major_radius, minor_radius) ->
-      assert_raise FunctionClauseError, fn -> Geom.area(:ellipse, major_radius, minor_radius) end
+      assert_raise FunctionClauseError, fn -> Geom.area({:ellipse, major_radius, minor_radius}) end
     end do
       [
         {-4, 5},
