@@ -10,15 +10,15 @@ defmodule Geom do
   :math.pi times the product of the arguments for an ellipse.
   """
   @spec area(atom(), number(), number()) :: number()
-  def area(:rectangle, length, width) when is_number(length) and is_number(width) do
+  def area(:rectangle, length, width) when length >= 0 and width >= 0 do
     length * width
   end
 
-  def area(:triangle, base, height) when is_number(base) and is_number(height) do
+  def area(:triangle, base, height) when base >= 0 and height >= 0 do
     base * height / 2.0
   end
   
-  def area(:ellipse, major_radius, minor_radius) when is_number(major_radius) and is_number(minor_radius) do
+  def area(:ellipse, major_radius, minor_radius) when major_radius >= 0 and minor_radius >= 0 do
     :math.pi() * major_radius * minor_radius
   end
 end
